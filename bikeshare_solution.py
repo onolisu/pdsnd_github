@@ -3,11 +3,28 @@ import pandas as pd
 import numpy as np
 
 pd.set_option('display.max_columns', None)
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'All']
-days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'All']
+CITY_DATA = { 'Chicago': 'chicago.csv',
+              'New York City': 'new_york_city.csv',
+              'Washington': 'washington.csv' }
+
+
+def check_data_entry(prompt, valid_entries):
+    """
+    Asks user to type some input and verify if the entry is valid.
+
+    Args:
+        (str) prompt - message to display to the user
+        (list) valid_entries - list of string that could be accepted
+    Returns:
+        (str) user_input - the user's valid input
+    """
+    user_input = input(prompt).title()
+    
+    while user_input not in valid_entries:
+        print('Sorry! This is not a valid input. Please try again!')
+        user_input = input(prompt).title()
+
+    return user_input
 
 def get_filters():
     """
@@ -20,19 +37,19 @@ def get_filters():
     """
     print('\nHello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = input('\nDo you want to explore the bikeshare data of Chicago, New York City or Washington?\n').lower()
-    while city not in CITY_DATA:
-        city = input('\nSorry! This is not a valid input. Please select a city among Chicago, New York City or Washington:\n').lower()
+    valid_cities = CITY_DATA.keys()
+    prompt_cities = '\nDo you want to explore the bikeshare data of Chicago, New York City or Washington?\n'
+    city = check_data_entry(prompt_cities, valid_cities)
 
     # get user input for month (all, january, february, ... , june)
-    month = input('\nWhich month of data do you want to look at? Type a month from January to June. Type "all" if you want to look at all months.\n').title()
-    while month not in months:
-        month = input('\nSorry! This is not a valid input. Please type a month from January to June or type "all" if you want to look at all months.\n').title()
+    valid_months = ['January', 'February', 'March', 'April', 'May', 'June', 'All']
+    prompt_month = '\nWhich month of data do you want to look at? Type a month from January to June. Type "all" if you want to look at all months.\n'
+    month = check_data_entry(prompt_month, valid_months)
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    day = input('\nDo you want to look at data on a specific day of the week? Type a day of the week. Type "all" if you want to look at all week days.\n').title()
-    while day not in days:
-        day = input('\nSorry! This is not a valid input. Please type a day of the week (e.g. Monday) or type "all" if you want to look at all days.\n').title()
+    valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'All']
+    prompt_day = '\nDo you want to look at data on a specific day of the week? Type a day of the week. Type "all" if you want to look at all week days.\n'
+    day = check_data_entry(prompt_day, valid_days)
 
     print('-'*40)
     return city, month, day
@@ -131,7 +148,7 @@ def user_stats(df):
     print('\nThe user type profile in the selected dataset is:\n', df['User Type'].value_counts())
 
     # Display counts of gender
-    if city == 'washington':
+    if city == 'Washington':
         return
     else:
         print('\nThe gender profile in the selected dataset is:\n', df['Gender'].value_counts())
@@ -146,24 +163,23 @@ def user_stats(df):
 
 def review_raw_data(df):
     """Displays selected raw data upon request. 5 rows at a time."""
-    display = input('\nWould you like to see the raw data? Enter yes or no.\n').lower()
-    while display != 'yes' and display != 'no':
-        display = input('\nSorry! This is not a valid input. Would you like to see the raw data? Enter yes or no.\n').lower()
-    if display == 'no':
+    valid_display = ['Yes', 'No']
+    prompt_display = '\nWould you like to see the raw data? Enter yes or no.\n'
+    display = check_data_entry(prompt_display, valid_display)
+    if display == 'No':
         return
-    if display == 'yes':
+    if display == 'Yes':
         print('\nThere is a total of {} rows of data.'.format(len(df.index)))
         print('\nDisplaying the first 5 rows of data...\n', df.head())
 
         # Ask if the user want to keep looking at raw data. Display 5 rows of data at a time until the user says 'no' or there is not more data to display.
         start_line = 5
         while start_line < len(df.index):
-            display = input('\nWould you like to keep looking at the raw data? Enter yes or no.\n').lower()
-            while display != 'yes' and display != 'no':
-                display = input('\nSorry! This is not a valid input. Would you like to keep looking at the raw data? Enter yes or no.\n').lower()
-            if display == 'no':
+            prompt_display = '\nWould you like to see the raw data? Enter yes or no.\n'
+            display = check_data_entry(prompt_display, valid_display)
+            if display == 'No':
                 return
-            elif display == 'yes' and start_line + 5 < len(df.index):
+            elif display == 'Yes' and start_line + 5 < len(df.index):
                 print('\nDisplaying the rows {} to {}...\n'.format(start_line + 1, start_line + 5), df[start_line : start_line + 5])
                 start_line += 5
             else: 
