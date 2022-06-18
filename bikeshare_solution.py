@@ -163,24 +163,23 @@ def user_stats(df):
 
 def review_raw_data(df):
     """Displays selected raw data upon request. 5 rows at a time."""
-    display = input('\nWould you like to see the raw data? Enter yes or no.\n').lower()
-    while display != 'yes' and display != 'no':
-        display = input('\nSorry! This is not a valid input. Would you like to see the raw data? Enter yes or no.\n').lower()
-    if display == 'no':
+    valid_display = ['Yes', 'No']
+    prompt_display = '\nWould you like to see the raw data? Enter yes or no.\n'
+    display = check_data_entry(prompt_display, valid_display)
+    if display == 'No':
         return
-    if display == 'yes':
+    if display == 'Yes':
         print('\nThere is a total of {} rows of data.'.format(len(df.index)))
         print('\nDisplaying the first 5 rows of data...\n', df.head())
 
         # Ask if the user want to keep looking at raw data. Display 5 rows of data at a time until the user says 'no' or there is not more data to display.
         start_line = 5
         while start_line < len(df.index):
-            display = input('\nWould you like to keep looking at the raw data? Enter yes or no.\n').lower()
-            while display != 'yes' and display != 'no':
-                display = input('\nSorry! This is not a valid input. Would you like to keep looking at the raw data? Enter yes or no.\n').lower()
-            if display == 'no':
+            prompt_display = '\nWould you like to see the raw data? Enter yes or no.\n'
+            display = check_data_entry(prompt_display, valid_display)
+            if display == 'No':
                 return
-            elif display == 'yes' and start_line + 5 < len(df.index):
+            elif display == 'Yes' and start_line + 5 < len(df.index):
                 print('\nDisplaying the rows {} to {}...\n'.format(start_line + 1, start_line + 5), df[start_line : start_line + 5])
                 start_line += 5
             else: 
