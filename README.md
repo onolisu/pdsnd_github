@@ -8,7 +8,7 @@ It is a project I created for the **_Udacity_ Intro to Python** class.
 June 17th, 2022
 
 ### Date last updated
-June 17th, 2022
+June 18th, 2022
 
 ### Files list
  * bikeshare_solution.py (available in this repo)
