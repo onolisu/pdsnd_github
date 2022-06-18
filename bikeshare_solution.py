@@ -148,7 +148,7 @@ def user_stats(df):
     print('\nThe user type profile in the selected dataset is:\n', df['User Type'].value_counts())
 
     # Display counts of gender
-    if city == 'washington':
+    if city == 'Washington':
         return
     else:
         print('\nThe gender profile in the selected dataset is:\n', df['Gender'].value_counts())
