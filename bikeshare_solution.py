@@ -22,7 +22,7 @@ def check_data_entry(prompt, valid_entries):
     user_input = input(prompt).title()
     
     while user_input not in valid_entries:
-        print('Sorry! This is not a valide input. Please try again!')
+        print('Sorry! This is not a valid input. Please try again!')
         user_input = input(prompt).title()
 
     return user_input
