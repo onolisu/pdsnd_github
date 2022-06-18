@@ -3,11 +3,10 @@ import pandas as pd
 import numpy as np
 
 pd.set_option('display.max_columns', None)
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'All']
-days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'All']
+CITY_DATA = { 'Chicago': 'chicago.csv',
+              'New York City': 'new_york_city.csv',
+              'Washington': 'washington.csv' }
+
 
 def check_data_entry(prompt, valid_entries):
     """
@@ -38,19 +37,19 @@ def get_filters():
     """
     print('\nHello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = input('\nDo you want to explore the bikeshare data of Chicago, New York City or Washington?\n').lower()
-    while city not in CITY_DATA:
-        city = input('\nSorry! This is not a valid input. Please select a city among Chicago, New York City or Washington:\n').lower()
+    valid_cities = CITY_DATA.keys()
+    prompt_cities = '\nDo you want to explore the bikeshare data of Chicago, New York City or Washington?\n'
+    city = check_data_entry(prompt_cities, valid_cities)
 
     # get user input for month (all, january, february, ... , june)
-    month = input('\nWhich month of data do you want to look at? Type a month from January to June. Type "all" if you want to look at all months.\n').title()
-    while month not in months:
-        month = input('\nSorry! This is not a valid input. Please type a month from January to June or type "all" if you want to look at all months.\n').title()
+    valid_months = ['January', 'February', 'March', 'April', 'May', 'June', 'All']
+    prompt_month = '\nWhich month of data do you want to look at? Type a month from January to June. Type "all" if you want to look at all months.\n'
+    month = check_data_entry(prompt_month, valid_months)
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    day = input('\nDo you want to look at data on a specific day of the week? Type a day of the week. Type "all" if you want to look at all week days.\n').title()
-    while day not in days:
-        day = input('\nSorry! This is not a valid input. Please type a day of the week (e.g. Monday) or type "all" if you want to look at all days.\n').title()
+    valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'All']
+    prompt_day = '\nDo you want to look at data on a specific day of the week? Type a day of the week. Type "all" if you want to look at all week days.\n'
+    day = check_data_entry(prompt_day, valid_days)
 
     print('-'*40)
     return city, month, day
