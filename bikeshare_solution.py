@@ -9,6 +9,24 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'All']
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'All']
 
+def check_data_entry(prompt, valid_entries):
+    """
+    Asks user to type some input and verify if the entry is valid.
+
+    Args:
+        (str) prompt - message to display to the user
+        (list) valid_entries - list of string that could be accepted
+    Returns:
+        (str) user_input - the user's valid input
+    """
+    user_input = input(prompt).title()
+    
+    while user_input not in valid_entries:
+        print('Sorry! This is not a valide input. Please try again!')
+        user_input = input(prompt).title()
+
+    return user_input
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
