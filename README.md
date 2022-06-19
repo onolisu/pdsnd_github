@@ -26,4 +26,5 @@ June 18th, 2022
 ### Credits
 This projected is guided by the instructions in **_Udacity_ Programming for Data Science with Python** nanodegree. 
 Data used in this project is from [Motivate](https://www.motivateco.com/).
+Special thanks to the annonymous Reviewer 1 of my Bikeshare project for the useful suggestions to refactor the codes! 
 
